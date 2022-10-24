@@ -1,7 +1,8 @@
 # Arduino-Python
-Arduino-Python is a Python 3 implementation of Arduino libraries and toolkit for various platforms.
 
-The main goal of this development is to offer a quick way to migrate pure Arduino C++ libraries and programs to Python.
+Arduino-Python is a Python 3 implementation of Arduino libraries and toolkit for various platforms including ESP32/MicroPython.
+
+The main goal of this development is to offer a quick way to migrate pure Arduino C++ libraries and programs to Python/MicroPython.
 
 
 ## Hello World!
@@ -18,7 +19,7 @@ void loop() {
 }
 ```
 
-can be translated to explicit Arduino-Python [HelloWorld-explicit.py] including translation of Arduino C++ main() function:
+can be translated to explicit Arduino-Python [HelloWorld-explicit.py] including translation of Arduino C++ `main()` function:
 ```python
 from Arduino import *
 
@@ -64,12 +65,12 @@ Serial.end()
 - RPi/RPi OS is any running recent [Python] or [Thonny].
 - ESP32/MicroPython is any of ESP32, EPS32-S2 or ESP32-C3 flashed with recent [MicroPython].
 
-- `implementation` is a Arduino-Python constant loaded before start of application. This constant is a shortcut to ```sys.implementation.name```. Its value is `"cpython"` or `"micropython"`. `implementation` can be checked with code like that:
+- `implementation` is a Arduino-Python constant loaded before start of application. This constant is a shortcut to `sys.implementation.name`. Its value is `"cpython"` or `"micropython"`. `implementation` can be checked with code like that:
 ```Python
 if implementation=="micropython":
     # execute next code only if MicroPython implementation...
 ```
-- `platform` is a Arduino-Python constant loaded before start of application. Its value is derivated from ```sys.platform``` and other checks. `platform` can be checked with code like that:
+- `platform` is a Arduino-Python constant loaded before start of application. Its value is derivated from `sys.platform` and other checks. `platform` can be checked with code like that:
 ```Python
 if platform=="esp32":
     # execute next code only if ESP32 hardware...
@@ -83,38 +84,40 @@ if ARDUINO_ARC_ESP32:
 
 ## Arduino translated headers, classes and objects
 
-| type    | name             | platform  | details implementation |
-|---------|------------------|-----------|------------------------|
-| header  | `Arduino`        | `"win32"` | digital and analog unavailable |
-|         |                  | `"macos"` | digital and analog unavailable |
-|         |                  | `"linux"` | digital and analog unavailable |
-|         |                  | `"rpios"` | digital soon available, analog unavailable |
-|         |                  | `"esp32"` | digital and analog soon available |
-| class   | `Print`          | all       | full |
-| class   | `Stream`         | all       | full |
-| class   | `HardwareSerial` | all       | full |
-| object  | `Serial`         | `"win32"` | full but restrictions by Thonny on reading |
-|         |                  | `"macos"` | full but restrictions by Thonny on reading |
-|         |                  | `"linux"` | full but restrictions by Thonny on reading |
-|         |                  | `"rpios"` | full but restrictions by Thonny on reading |
-|         |                  | `"esp32"` | full but restrictions by Thonny on reading |
-| object  | `Serial1`        | `"rpios"` | full on `/dev/ttyAMA0` (UART0 TXD=8 RXD=10) |
-|         |                  | `"esp32"` | full on UART1 |
-|         | `Serial1`..      | `"win32"` | full on USB comport user declared |
-|         |                  | `"macos"` | full on USB comport user declared |
-|         |                  | `"linux"` | full on USB comport user declared |
-|         |                  | `"rpios"` | full on USB comport user declared |
-| class   | `TwoWire`        | all       | full |
-| object  | `Wire`           | `"win32"` | I2C Restart currently unavailable |
-|         |                  | `"macos"` | I2C Restart currently unavailable |
-|         |                  | `"linux"` | I2C Restart currently unavailable |
-|         |                  | `"rpios"` | I2C Restart currently unavailable |
-|         |                  | `"esp32"` | full, soon available |
-| class   | `SDClass`        | all       | soon available |
-| object  | `SD`             | all       | soon available |
-| class   | `File`           | all       | soon available |
-| library | `jm_PCF8574`     | all       | full |
-| library | `jm_LCM2004A_I2C` | all      | full |
+| type    | name              | platform  | details implementation |
+|---------|-------------------|-----------|------------------------|
+| header  | `Arduino`         | `"win32"` | digital, analog and Wire unavailable |
+|         |                   | `"macos"` | digital, analog and Wire unavailable |
+|         |                   | `"linux"` | digital, analog and Wire unavailable |
+|         |                   | `"rpios"` | digital soon available, analog unavailable |
+|         |                   | `"esp32"` | digital and analog soon available |
+| class   | `Print`           | all       | ready, not full implemented |
+| class   | `Stream`          | all       | ready, not full implemented |
+| class   | `HardwareSerial`  | all       | full |
+| object  | `Serial`          | `"win32"` | full but Thonny's reading restrictions |
+|         |                   | `"macos"` | full but Thonny's reading restrictions |
+|         |                   | `"linux"` | full but Thonny's reading restrictions |
+|         |                   | `"rpios"` | full but Thonny's reading restrictions |
+|         |                   | `"esp32"` | full but Thonny's reading restrictions |
+| object  | `Serial1`         | `"rpios"` | full on `/dev/ttyAMA0` (UART0 TXD=8 RXD=10) |
+|         |                   | `"esp32"` | full on UART1 |
+|         | `Serial1`..       | `"win32"` | full on USB user declared comport |
+|         |                   | `"macos"` | full on USB user declared comport |
+|         |                   | `"linux"` | full on USB user declared comport |
+|         |                   | `"rpios"` | full on USB user declared comport |
+| class   | `TwoWire`         | all       | full |
+| object  | `Wire`            | `"win32"` | I2C unavailable |
+|         |                   | `"macos"` | I2C unavailable |
+|         |                   | `"linux"` | I2C unavailable |
+|         |                   | `"rpios"` | full |
+|         |                   | `"esp32"` | full |
+| class   | `SDClass`         | all       | full |
+| object  | `SD`              | all       | full |
+| class   | `File`            | all       | full |
+| class   | `String`          | all       | not yet implemented |
+| library | `jm_PCF8574`      | all       | full |
+| library | `jm_LCM2004A_I2C` | all       | full |
+| library | `jm_time`         | all       | Python/MicroPython `time` replacement with common UNIX epoch, timezone support and more |
 
 
 ## Serial.write(), Serial.print()
@@ -124,12 +127,12 @@ if ARDUINO_ARC_ESP32:
 `Serial.write()` accepts 1 argument with 3 different meanings:  
 - `c`, a 8-bit positiv integer written as single byte. This could be a character ordinal value or a data byte. Exemple: `Serial.write(ord('A')) # write byte 65`
 - `bstr`, a Python bytes object written as bytes. Exemple: `Serial.write(b'hello\r\n') # write 7 bytes`
-- `str`, a Python unicode string converted to utf-8 bytes and then written. Exemple: `Serial.write('é') # write 2 bytes b'\xc3\xa9'`
+- `str`, a Python unicode string converted to utf-8 bytes and then written. Exemple: `Serial.write('é') # write 2 bytes: b'\xc3\xa9'`
 
 `Serial.print()` accepts 1 argument with 3 different meanings:  
 - `n`, a Python number printed as a human-readable string. Exemple: `Serial.print(65) # write bytes b'65'`
-- `bstr`, same behaviour as 'Serial.write()`
-- `str`, same behaviour as 'Serial.write()`
+- `bstr`, same behaviour as `Serial.write()`
+- `str`, same behaviour as `Serial.write()`
 
 `Serial.write()` and `Serial.print()` returns the number of written bytes.
 
@@ -143,14 +146,14 @@ if ARDUINO_ARC_ESP32:
 `Serial`is the Arduino console input/output. This object is implemented on a serial uart, a serial usb or a virtual serial. Restrictions apply to reading.
 
 `Serial.read()` has no argument, it returns either of:  
-- integer value -1 if no data is available
+- integer value `-1` if no data is available
 - a 8-bit positiv integer representing a character ordinal value or a data byte. The character ordinal value can be converted to str with `chr()` function. Example 1: `str += chr(65) # append 'A' to str`. Exemple 2: `bstr += chr(65).encode() # append b'A' to bstr`
 
 Restrictions are of 2 types:
-- programs running with [thonny] can't have a true byte per byte reading. On 1st `Serial.read()`, a full input line is read, buffered and ended with `<CR><LF>`, and then read byte per byte. Waiting the input line, the program is stopped, control is not give back until a ending line is typed!
+- programs running with [thonny] can't have a true byte per byte reading. On 1st `Serial.read()`, a full input line is read, buffered and ended with `<CR><LF>`, and then read byte per byte. Waiting the input line, the program is stopped, control is not given back until a ending line is typed!
 - in practice, read characters is limited to ascii charset excluding control characters and `<DEL>` character. A 8-bit encoder/decoder to/from ascii charset must be implemented to exchange unrestricted data via the console.
 
-`Serial1` and next have the same methods than `Serial` but without restrictions.
+`Serial1` and next have same methods but without Thonny's reading restrictions.
 
 
 ## Folders contents
@@ -163,13 +166,14 @@ Restrictions are of 2 types:
 
 Additional informations are given in each folders.
 
+
 ## Basic usage
 
 - Create a `<arduino-python>` development folder.
 - Copy all [arduino] files into the `<arduino-python>` development folder.
 - Copy other files to learn from [libraries] and [examples] into the `<arduino-python>` development folder.
 - Executing from _Windows Command_, type `python <scriptname>` or simply `<scriptname>` (verify that `Python` is correctly written in `PATH` environment).
-- Executing from _Linux Terminal_, type `python <scriptname>` or simply `./<scriptname>` (don't forget to set _executable permissions_ to `<scriptname>`, look at [How to run a Python script in Linux] for howto).
+- Executing from _Linux Terminal_, type `python <scriptname>` or simply `./<scriptname>` (don't forget to set _executable permissions_ to `<scriptname>`, look at [How to run a Python script in Linux] howto).
 - Executing from [Thonny] - _Python IDE for beginners_, load `<scriptname>` and run it.
 - Enjoy :smiley:
 
