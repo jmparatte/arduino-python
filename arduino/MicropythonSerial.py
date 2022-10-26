@@ -1,5 +1,5 @@
 
-# Arduino class MicroPythonSerial
+# Arduino class MicropythonSerial
 # ===============================
 
 from Arduino_defines import *
@@ -9,7 +9,7 @@ from machine import UART
 
 class MicropythonSerial(HardwareSerial):
 
-    def __init__(self, num, tx, rx):
+    def __init__(self, num, tx, rx): # Micropython pin's order !
 
         HardwareSerial.__init__(self)
 
@@ -18,6 +18,18 @@ class MicropythonSerial(HardwareSerial):
         self._rx = rx
 
         self._uart = UART(self._num, tx=self._tx, rx=self._rx)
+
+    def num(self):
+        return self._num
+
+    def tx(self):
+        return self._tx
+
+    def rx(self):
+        return self._rx
+
+    def uart(self):
+        return self._uart
 
     def begin(self, baudrate=9600, settings=SERIAL_8N1): # return OK
 

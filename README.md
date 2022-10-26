@@ -117,7 +117,7 @@ if ARDUINO_ARC_ESP32:
 | class   | `String`          | all       | not yet implemented |
 | library | `jm_PCF8574`      | all       | full |
 | library | `jm_LCM2004A_I2C` | all       | full |
-| library | `jm_time`         | all       | Python/MicroPython `time` replacement with common UNIX epoch, timezone support and more |
+| library | `jm_time`         | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
 
 
 ## Serial.write(), Serial.print()

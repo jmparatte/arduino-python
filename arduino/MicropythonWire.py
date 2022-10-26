@@ -10,15 +10,29 @@ from TwoWire import *
 
 class MicropythonWire(TwoWire):
 
-    def __init__(self, scl=35, sda=33):
+    def __init__(self, scl=35, sda=33): # Micropython pin's order !
         super(MicropythonWire, self).__init__()
         self._scl = scl
         self._sda = sda
         self._i2c = machine.SoftI2C(scl=machine.Pin(self._scl), sda=machine.Pin(self._sda), freq=100000, timeout=50000)
+    #def __init__(self, sda=WIRE_SDA_PIN, scl=WIRE_SCL_PIN): # Arduino pin's order !
+    #    super(MicropythonWire, self).__init__()
+    #    self._sda = sda
+    #    self._scl = scl
+    #    self._i2c = machine.SoftI2C(scl=machine.Pin(self._scl), sda=machine.Pin(self._sda), freq=100000, timeout=50000)
 
     def __del__(self):
         del self._i2c
         super(MicropythonWire, self).__del__()
+
+    def scl(self):
+        return self._scl
+
+    def sda(self):
+        return self._sda
+
+    def i2c(self):
+        return self._i2c
 
     #def __bool__(self):
     #    return self._errored
