@@ -11,9 +11,20 @@ if thonny_detected:
     global thonny_input_str, thonny_input_idx
     thonny_input_str, thonny_input_idx = ('', 0)
 else:
-    if ARDUINO_ARCH_WIN32:
-        import msvcrt
-        #msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+    if implementation=='cpython':
+        if ARDUINO_ARCH_WIN32:
+            import msvcrt
+            #msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+        else:
+            import sys
+            import select
+            import tty
+            import termios
+
+            stty_settings = termios.tcgetattr(sys.stdin)
+            #tty.setcbreak(sys.stdin)
+            #...
+            #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
     else:
         import sys
         import select
@@ -29,11 +40,39 @@ class ConsoleSerial(HardwareSerial):
 
     def begin(self, baudrate=9600, settings=SERIAL_8N1): # return OK
         if not HardwareSerial.begin(self, baudrate, settings): return False
+        if thonny_detected:
+            pass
+        else:
+            if implementation=='cpython':
+                if ARDUINO_ARCH_WIN32:
+                    pass
+                else:
+                    global stty_settings
+                    #stty_settings = termios.tcgetattr(sys.stdin)
+                    tty.setcbreak(sys.stdin)
+                    #...
+                    #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
+            else:
+                pass
         self._connected = True
         return self._connected
 
     def end(self): # return OK
         if not self._connected: return False
+        if thonny_detected:
+            pass
+        else:
+            if implementation=='cpython':
+                if ARDUINO_ARCH_WIN32:
+                    pass
+                else:
+                    global stty_settings
+                    #stty_settings = termios.tcgetattr(sys.stdin)
+                    #tty.setcbreak(sys.stdin)
+                    #...
+                    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
+            else:
+                pass
         self._connected = False
         return HardwareSerial.end(self)
 
@@ -65,11 +104,21 @@ class ConsoleSerial(HardwareSerial):
             c = ord(thonny_input_str[thonny_input_idx])
             thonny_input_idx += 1
         else:
-            if ARDUINO_ARCH_WIN32:
-                if msvcrt.kbhit():
-                    c = ord(msvcrt.getch())
+            if implementation=='cpython':
+                if ARDUINO_ARCH_WIN32:
+                    if msvcrt.kbhit():
+                        c = ord(msvcrt.getch())
+                    else:
+                        c = -1
                 else:
-                    c = -1
+                    #stty_settings = termios.tcgetattr(sys.stdin)
+                    #tty.setcbreak(sys.stdin)
+                    list = select.select([sys.stdin], [], [], 0)
+                    if list[0]:
+                        c = ord(sys.stdin.read(1))
+                    else:
+                        c = -1
+                    #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
             else:
                 list = select.select([sys.stdin], [], [], 0)
                 if list[0]:

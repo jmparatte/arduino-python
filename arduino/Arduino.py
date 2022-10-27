@@ -6,10 +6,10 @@ from Arduino_defines import *
 
 # ===================
 
-if implementation == 'cpython':
+if implementation=='cpython':
     if os.path.exists('Arduino_config.py'):
         from Arduino_config import *
-elif implementation == 'micropython':
+elif implementation=='micropython':
     try:
         if bool(os.stat('Arduino_config.py')):
             from Arduino_config import *

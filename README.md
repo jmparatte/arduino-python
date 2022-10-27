@@ -19,7 +19,7 @@ void loop() {
 }
 ```
 
-can be translated to explicit Arduino-Python [HelloWorld-explicit.py] including translation of Arduino C++ `main()` function:
+can be translated to explicit Arduino-Python [HelloWorld_explicit.py] including translation of Arduino C++ `main()` function:
 ```python
 from Arduino import *
 
@@ -39,7 +39,7 @@ def main():
 main()
 ```
 
-or can be translated to minimal shortest compact Arduino-Python [HelloWorld-compact.py] exluding unnecessary code:
+or can be translated to minimal shortest compact Arduino-Python [HelloWorld_compact.py] exluding unnecessary code:
 ```python
 from Arduino import *
 
@@ -84,40 +84,44 @@ if ARDUINO_ARC_ESP32:
 
 ## Arduino translated headers, classes and objects
 
-| type    | name              | platform  | details implementation |
-|---------|-------------------|-----------|------------------------|
-| header  | `Arduino`         | `"win32"` | digital, analog and Wire unavailable |
-|         |                   | `"macos"` | digital, analog and Wire unavailable |
-|         |                   | `"linux"` | digital, analog and Wire unavailable |
-|         |                   | `"rpios"` | digital soon available, analog unavailable |
-|         |                   | `"esp32"` | digital and analog soon available |
-| class   | `Print`           | all       | ready, not full implemented |
-| class   | `Stream`          | all       | ready, not full implemented |
-| class   | `HardwareSerial`  | all       | full |
-| object  | `Serial`          | `"win32"` | full but Thonny's reading restrictions |
-|         |                   | `"macos"` | full but Thonny's reading restrictions |
-|         |                   | `"linux"` | full but Thonny's reading restrictions |
-|         |                   | `"rpios"` | full but Thonny's reading restrictions |
-|         |                   | `"esp32"` | full but Thonny's reading restrictions |
-| object  | `Serial1`         | `"rpios"` | full on `/dev/ttyAMA0` (UART0 TXD=8 RXD=10) |
-|         |                   | `"esp32"` | full on UART1 |
-|         | `Serial1`..       | `"win32"` | full on USB user declared comport |
-|         |                   | `"macos"` | full on USB user declared comport |
-|         |                   | `"linux"` | full on USB user declared comport |
-|         |                   | `"rpios"` | full on USB user declared comport |
-| class   | `TwoWire`         | all       | full |
-| object  | `Wire`            | `"win32"` | I2C unavailable |
-|         |                   | `"macos"` | I2C unavailable |
-|         |                   | `"linux"` | I2C unavailable |
-|         |                   | `"rpios"` | full |
-|         |                   | `"esp32"` | full |
-| class   | `SDClass`         | all       | full |
-| object  | `SD`              | all       | full |
-| class   | `File`            | all       | full |
-| class   | `String`          | all       | not yet implemented |
-| library | `jm_PCF8574`      | all       | full |
-| library | `jm_LCM2004A_I2C` | all       | full |
-| library | `jm_time`         | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
+| type    | name               | platform  | details implementation |
+|---------|--------------------|-----------|------------------------|
+| header  | `Arduino`          | `"win32"` | digital, analog and Wire unavailable |
+|         |                    | `"macos"` | digital, analog and Wire unavailable |
+|         |                    | `"linux"` | digital, analog and Wire unavailable |
+|         |                    | `"rpios"` | digital soon available, analog unavailable |
+|         |                    | `"esp32"` | digital and analog soon available |
+| class   | `String`           | all       | not yet implemented |
+| class   | `Print`            | all       | ready, not full implemented |
+| class   | `Stream`           | all       | ready, not full implemented |
+| class   | `HardwareSerial`   | all       | full |
+| object  | `Serial`           | `"win32"` | full but with Thonny's reading restrictions |
+|         |                    | `"macos"` | full but with Thonny's reading restrictions |
+|         |                    | `"linux"` | full but with Thonny's reading restrictions |
+|         |                    | `"rpios"` | full but with Thonny's reading restrictions |
+|         |                    | `"esp32"` | full but with Thonny's reading restrictions |
+| object  | `Serial1`          | `"rpios"` | full on `/dev/ttyAMA0` (UART0 TXD=8 RXD=10) |
+|         |                    | `"esp32"` | full on UART1 |
+|         | `Serial1` ...      | `"win32"` | full on USB user declared comport |
+|         |                    | `"macos"` | full on USB user declared comport |
+|         |                    | `"linux"` | full on USB user declared comport |
+|         |                    | `"rpios"` | full on USB user declared comport |
+| class   | `TwoWire`          | all       | full |
+| object  | `Wire`             | `"win32"` | I2C unavailable |
+|         |                    | `"macos"` | I2C unavailable |
+|         |                    | `"linux"` | I2C unavailable |
+|         |                    | `"rpios"` | full |
+|         |                    | `"esp32"` | full |
+| class   | `File`             | all       | full |
+| class   | `SDClass`          | all       | full |
+| object  | `SD`               | all       | full |
+| library | `jm_PCF8574`       | all       | full |
+| library | `jm_LCM2004A_I2C`  | all       | full |
+| library | `jm_time`          | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
+| example | `HelloWorld_explicit.py`        | all       | `Serial.print()` basic demo with explicit `main()` function |
+| example | `HelloWorld_compact.py`         | all       | `Serial.print()` basic demo with compact code |
+| example | `Serial_read_char.py`           | all       | `Serial.read()` basic demo but with Thonny's reading restrictions |
+| example | `jm_LCM2004A_I2C_HelloWorld.py` | all       | `lcd.print()` basic demo |
 
 
 ## Serial.write(), Serial.print()
@@ -146,14 +150,14 @@ if ARDUINO_ARC_ESP32:
 `Serial`is the Arduino console input/output. This object is implemented on a serial uart, a serial usb or a virtual serial. Restrictions apply to reading.
 
 `Serial.read()` has no argument, it returns either of:  
-- integer value `-1` if no data is available
+- integer value `-1` if no available data 
 - a 8-bit positiv integer representing a character ordinal value or a data byte. The character ordinal value can be converted to str with `chr()` function. Example 1: `str += chr(65) # append 'A' to str`. Exemple 2: `bstr += chr(65).encode() # append b'A' to bstr`
 
 Restrictions are of 2 types:
-- programs running with [thonny] can't have a true byte per byte reading. On 1st `Serial.read()`, a full input line is read, buffered and ended with `<CR><LF>`, and then read byte per byte. Waiting the input line, the program is stopped, control is not given back until a ending line is typed!
-- in practice, read characters is limited to ascii charset excluding control characters and `<DEL>` character. A 8-bit encoder/decoder to/from ascii charset must be implemented to exchange unrestricted data via the console.
+- programs running through [Thonny] IDE can't have a true byte per byte console reading. On 1st `Serial.read()`, a full input line is read, buffered and ended with `<CR><LF>`, and then read byte per byte. Waiting the input line, the program is stopped, control is not given back until an ending line character is typed!
+- in practice, console read characters is limited to ascii 7-bit charset excluding control characters and `<DEL>` character. A 8-bit encoder/decoder to/from ascii charset with checksum must be implemented to exchange unrestricted secured data via the console.
 
-`Serial1` and next have same methods but without Thonny's reading restrictions.
+`Serial1` and next have same methods but without any reading restrictions.
 
 
 ## Folders contents
@@ -177,6 +181,7 @@ Additional informations are given in each folders.
 - Executing from [Thonny] - _Python IDE for beginners_, load `<scriptname>` and run it.
 - Enjoy :smiley:
 
+
 [arduino]: <arduino>
 [libraries]: <libraries>
 [examples]: <examples>
@@ -184,9 +189,11 @@ Additional informations are given in each folders.
 [tools]: <tools>
 
 [HelloWorld.ino]: <examples/HelloWorld.ino>
-[HelloWorld-explicit.py]: <examples/HelloWorld-explicit.py>
-[HelloWorld-compact.py]: <examples/HelloWorld-compact.py>
+[HelloWorld_explicit.py]: <examples/HelloWorld_explicit.py>
+[HelloWorld_compact.py]: <examples/HelloWorld_compact.py>
+[Serial_read_char.py]: <examples/Serial_read_char.py>
 
+[jm_LCM2004A_I2C_HelloWorld.py]: <examples/jm_LCM2004A_I2C_HelloWorld.py>
 [jm_LCM2004A_I2C_charset.py]: <examples/jm_LCM2004A_I2C_charset.py>
 [jm_LCM2004A_I2C_demo1.ino]: <https://github.com/jmparatte/jm_LCM2004A_I2C/blob/master/examples/jm_LCM2004A_I2C_demo1/jm_LCM2004A_I2C_demo1.ino>
 
@@ -196,6 +203,7 @@ Additional informations are given in each folders.
 [MicroPython]: <https://micropython.org/>
 
 [How to run a Python script in Linux]: <https://www.educative.io/answers/how-to-run-a-python-script-in-linux>
+
 
 [//]: # (
 Look at [jm_LCM2004A_I2C_charset.py] example translated from [jm_LCM2004A_I2C_demo1.ino] Arduino example.

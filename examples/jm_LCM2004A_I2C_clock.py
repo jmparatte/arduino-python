@@ -5,7 +5,7 @@ from Wire import *
 
 import jm_time as time
 
-from jm_LCM2004A_I2C import jm_LCM2004A_I2C
+from jm_LCM2004A_I2C import *
 
 lcd = jm_LCM2004A_I2C()
 
