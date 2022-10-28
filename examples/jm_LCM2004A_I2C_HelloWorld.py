@@ -9,6 +9,7 @@ lcd = jm_LCM2004A_I2C()
 
 Wire.begin()
 lcd.begin()
+
 # write "Hello World!" 4 times...
 lcd.set_cursor(0, 0)
 lcd.print("Hello World!")
