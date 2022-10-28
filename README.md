@@ -92,8 +92,8 @@ if ARDUINO_ARC_ESP32:
 |         |                    | `"rpios"` | digital soon available, analog unavailable |
 |         |                    | `"esp32"` | digital and analog soon available |
 | class   | `String`           | all       | not yet implemented |
-| class   | `Print`            | all       | ready, not full implemented |
-| class   | `Stream`           | all       | ready, not full implemented |
+| class   | `Print`            | all       | ready, not fully implemented |
+| class   | `Stream`           | all       | ready, not fully implemented |
 | class   | `HardwareSerial`   | all       | full |
 | object  | `Serial`           | `"win32"` | full but with Thonny's reading restrictions |
 |         |                    | `"macos"` | full but with Thonny's reading restrictions |
