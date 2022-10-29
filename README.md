@@ -184,11 +184,16 @@ Restrictions are of 2 types:
 Additional informations are given in each folders.
 
 
-## Basic usage
+## Installation
 
 - Create a `<arduino-python>` development folder.
 - Copy all [arduino] files into the `<arduino-python>` development folder.
 - Copy other files to learn from [libraries] and [examples] into the `<arduino-python>` development folder.
+
+
+## Basic usage
+
+- Open `<arduino-python>` development folder.
 - Executing from _Windows Command_, type `python <scriptname>` or simply `<scriptname>` (verify that `Python` link is correctly declared in `PATH` environment).
 - Executing from _Linux Terminal_, type `python <scriptname>` or simply `./<scriptname>` (don't forget to set _executable permissions_ to `<scriptname>`, look at [How to run a Python script in Linux] howto).
 - Executing from [Thonny] - _Python IDE for beginners_, load `<scriptname>` and run it.
