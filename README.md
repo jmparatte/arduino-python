@@ -77,7 +77,7 @@ if platform=="esp32":
 ```
 - `ARDUINO_ARCH_xxxxx` are Arduino-Python constants loaded before start of application. They values are all `False` but only one is `True`. They can be checked with codes like that:
 ```Python
-if ARDUINO_ARC_ESP32:
+if ARDUINO_ARCH_ESP32:
     # execute next code only if ESP32 hardware...
 ```
 
@@ -189,7 +189,7 @@ Additional informations are given in each folders.
 - Create a `<arduino-python>` development folder.
 - Copy all [arduino] files into the `<arduino-python>` development folder.
 - Copy other files to learn from [libraries] and [examples] into the `<arduino-python>` development folder.
-- Executing from _Windows Command_, type `python <scriptname>` or simply `<scriptname>` (verify that `Python` is correctly written in `PATH` environment).
+- Executing from _Windows Command_, type `python <scriptname>` or simply `<scriptname>` (verify that `Python` link is correctly declared in `PATH` environment).
 - Executing from _Linux Terminal_, type `python <scriptname>` or simply `./<scriptname>` (don't forget to set _executable permissions_ to `<scriptname>`, look at [How to run a Python script in Linux] howto).
 - Executing from [Thonny] - _Python IDE for beginners_, load `<scriptname>` and run it.
 - Enjoy :smiley:
