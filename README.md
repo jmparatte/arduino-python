@@ -118,10 +118,16 @@ if ARDUINO_ARC_ESP32:
 | library | `jm_PCF8574`       | all       | full |
 | library | `jm_LCM2004A_I2C`  | all       | full |
 | library | `jm_time`          | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
-| example | `HelloWorld_explicit.py`        | all       | `Serial.print()` basic demo with explicit `main()` function |
-| example | `HelloWorld_compact.py`         | all       | `Serial.print()` basic demo with compact code |
-| example | `Serial_read_char.py`           | all       | `Serial.read()` basic demo but with Thonny's reading restrictions |
-| example | `jm_LCM2004A_I2C_HelloWorld.py` | all       | `lcd.print()` basic demo |
+
+
+## Arduino-Python examples
+
+| example                           | platform  | summary |
+|-----------------------------------|-----------|---------|
+| `HelloWorld_explicit.py`          | all       | `Serial.print()` basic demo with explicit `main()` function |
+| `HelloWorld_compact.py`           | all       | `Serial.print()` basic demo with compact code |
+| `Serial_read_char.py`             | all       | `Serial.read()` basic demo but with Thonny's reading restrictions |
+| `jm_LCM2004A_I2C_HelloWorld.py`   | all       | `lcd.print()` basic demo |
 
 
 ## Serial.write(), Serial.print()
