@@ -100,12 +100,12 @@ if ARDUINO_ARC_ESP32:
 |         |                    | `"linux"` | full but with Thonny's reading restrictions |
 |         |                    | `"rpios"` | full but with Thonny's reading restrictions |
 |         |                    | `"esp32"` | full but with Thonny's reading restrictions |
-| object  | `Serial1`          | `"rpios"` | full on `/dev/ttyAMA0` (UART0 TXD=8 RXD=10) |
-|         |                    | `"esp32"` | full on UART1 |
-|         | `Serial1` ...      | `"win32"` | full on USB user declared comport |
+| object  | `Serial0`          | `"rpios"` | full on UART0 `/dev/ttyAMA0` (TXD=8 RXD=10) |
+| object  | `Serial1` ...      | `"win32"` | full on USB user declared comport |
 |         |                    | `"macos"` | full on USB user declared comport |
 |         |                    | `"linux"` | full on USB user declared comport |
 |         |                    | `"rpios"` | full on USB user declared comport |
+| object  | `Serial1`          | `"esp32"` | full on UART1 (various pins) |
 | class   | `TwoWire`          | all       | full |
 | object  | `Wire`             | `"win32"` | I2C unavailable |
 |         |                    | `"macos"` | I2C unavailable |
@@ -115,19 +115,26 @@ if ARDUINO_ARC_ESP32:
 | class   | `File`             | all       | full |
 | class   | `SDClass`          | all       | full |
 | object  | `SD`               | all       | full |
-| library | `jm_PCF8574`       | all       | full |
-| library | `jm_LCM2004A_I2C`  | all       | full |
-| library | `jm_time`          | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
+
+
+## Arduino-Python libraries
+
+| library/class                     | platform  | summary |
+|-----------------------------------|-----------|---------|
+| [jm_PCF8574.py]                   | all       | read/write I2C PCF8574 Quasi-bidirectional I/Os |
+| [jm_LCM2004A_I2C.py]              | all       | read/write I2C Liquid Crystal Module 2004A |
+| [jm_time.py]                      | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
 
 
 ## Arduino-Python examples
 
 | example                           | platform  | summary |
 |-----------------------------------|-----------|---------|
-| `HelloWorld_explicit.py`          | all       | `Serial.print()` basic demo with explicit `main()` function |
-| `HelloWorld_compact.py`           | all       | `Serial.print()` basic demo with compact code |
-| `Serial_read_char.py`             | all       | `Serial.read()` basic demo but with Thonny's reading restrictions |
-| `jm_LCM2004A_I2C_HelloWorld.py`   | all       | `lcd.print()` basic demo |
+| [HelloWorld_explicit.py]          | all       | `Serial.print()` basic demo with explicit `main()` function |
+| [HelloWorld_compact.py]           | all       | `Serial.print()` basic demo with compact code |
+| [Serial_read_char.py]             | all       | `Serial.read()` basic demo with Thonny's reading restrictions |
+| [jm_LCM2004A_I2C_HelloWorld.py]   | all       | `lcd.print()` basic demo |
+| [jm_LCM2004A_I2C_PrintScreen.py]  | all       | `lcd.read()` basic demo |
 
 
 ## Serial.write(), Serial.print()
@@ -148,7 +155,7 @@ if ARDUINO_ARC_ESP32:
 
 `Serial.println()` proceeds same as `Serial.print()` but append `b'\r\n'` end-of-line.
 
-`Serial1` and next have the same methods than `Serial`.
+`Serial0` (Raspberry Pi), `Serial1` and next have same methods as `Serial`.
 
 
 ## Serial.read()
@@ -163,7 +170,7 @@ Restrictions are of 2 types:
 - programs running through [Thonny] IDE can't have a true byte per byte console reading. On 1st `Serial.read()`, a full input line is read, buffered and ended with `<CR><LF>`, and then read byte per byte. Waiting the input line, the program is stopped, control is not given back until an ending line character is typed!
 - in practice, console read characters is limited to ascii 7-bit charset excluding control characters and `<DEL>` character. A 8-bit encoder/decoder to/from ascii charset with checksum must be implemented to exchange unrestricted secured data via the console.
 
-`Serial1` and next have same methods but without any reading restrictions.
+`Serial0` (Raspberry Pi), `Serial1` and next have same methods as `Serial` but without any reading restrictions.
 
 
 ## Folders contents
@@ -194,12 +201,18 @@ Additional informations are given in each folders.
 [cgi-bin]: <cgi-bin>
 [tools]: <tools>
 
+[jm_PCF8574.py]: <libraries/jm_PCF8574.py>
+[jm_LCM2004A_I2C.py]: <libraries/jm_LCM2004A_I2C.py>
+[jm_time.py]: <libraries/jm_time.py>
+
 [HelloWorld.ino]: <examples/HelloWorld.ino>
+
 [HelloWorld_explicit.py]: <examples/HelloWorld_explicit.py>
 [HelloWorld_compact.py]: <examples/HelloWorld_compact.py>
 [Serial_read_char.py]: <examples/Serial_read_char.py>
 
 [jm_LCM2004A_I2C_HelloWorld.py]: <examples/jm_LCM2004A_I2C_HelloWorld.py>
+[jm_LCM2004A_I2C_PrintScreen.py]: <examples/jm_LCM2004A_I2C_PrintScreen.py>
 [jm_LCM2004A_I2C_charset.py]: <examples/jm_LCM2004A_I2C_charset.py>
 [jm_LCM2004A_I2C_demo1.ino]: <https://github.com/jmparatte/jm_LCM2004A_I2C/blob/master/examples/jm_LCM2004A_I2C_demo1/jm_LCM2004A_I2C_demo1.ino>
 
