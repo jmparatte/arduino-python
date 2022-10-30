@@ -1,11 +1,11 @@
 # Arduino-Python
 
-Arduino-Python is a Python/MicroPython implementation of Arduino libraries and toolkit for various platforms as ESP32.
+Arduino-Python is a Python/MicroPython implementation of Arduino libraries and toolkit for various platforms as Raspberry PI and ESP32.
 
 The main goal of this development is to offer a quick way to migrate pure Arduino C++ libraries and programs to Python/MicroPython.
 
 
-## Hello World
+## Hello World!
 
 Arduino program [HelloWorld.ino]:  
 ```C++
@@ -228,10 +228,8 @@ Additional informations are given in each folders.
 
 [How to run a Python script in Linux]: <https://www.educative.io/answers/how-to-run-a-python-script-in-linux>
 
+[www.markdownguide.org]: <https://www.markdownguide.org/>
+[dillinger.io]: <https://dillinger.io/>
 
 [//]: # (
-Look at [jm_LCM2004A_I2C_charset.py] example translated from [jm_LCM2004A_I2C_demo1.ino] Arduino example.
-Python implementation of Arduino libraries and toolkit for Windows and Linux platforms, and also for MicroPython ESP32
-https://www.markdownguide.org/
-https://dillinger.io/
 )
