@@ -8,7 +8,7 @@ from Arduino_defines import *
 
 # https://www.arduino.cc/reference/en/libraries/sd/
 
-# https://docs.micropython.org/en/latest/library/os.html
+# https://docs.micropython.org/en/latest/library/_os.html
 
 from MicropythonFile import *
 
@@ -36,39 +36,39 @@ class MicropythonSDClass():
 
     def isdir(self, path):
         try:
-            return os.stat(self.fullpath(path))[0]==0x4000
+            return _os.stat(self.fullpath(path))[0]==0x4000
         except:
             return False
 
     def isfile(self, path):
         try:
-            return os.stat(self.fullpath(path))[0]==0x8000
+            return _os.stat(self.fullpath(path))[0]==0x8000
         except:
             return False
 
     def exists(self, path): # return OK
         try:
-            return bool(os.stat(self.fullpath(path)))
+            return bool(_os.stat(self.fullpath(path)))
         except:
             return False
 
     def remove(self, path): # return OK
         try:
-            os.remove(self.fullpath(path))
+            _os.remove(self.fullpath(path))
             return True
         except:
             return False
 
     def mkdir(self, path): # return OK
         try:
-            os.mkdir(self.fullpath(path))
+            _os.mkdir(self.fullpath(path))
             return True
         except:
             return False
 
     def rmdir(self, path): # return OK
         try:
-            os.rmdir(self.fullpath(path))
+            _os.rmdir(self.fullpath(path))
             return True
         except:
             return False

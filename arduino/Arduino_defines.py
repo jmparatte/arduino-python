@@ -2,11 +2,11 @@
 # Arduino defines
 # ===============
 
-import sys
-import time #as time
-import os
+import sys as _sys
+import time as _time
+import os as _os
 
-implementation = sys.implementation.name # "cpython" or "micropython" (other implementations not checked)
+implementation = _sys.implementation.name # "cpython" or "micropython" (other implementations not checked)
 
 python_detected = implementation=="cpython"
 micropython_detected = implementation=="micropython"
@@ -15,16 +15,16 @@ try:
     #thonny_detected = bool(globals()['__thonny_helper']) # True if exists and non-empty
     #thonny_detected = bool(globals()['_thonny_repl_print']) # True if exists and non-empty
     if python_detected:
-        thonny_detected = bool(os.environ['THONNY_USER_DIR']) # True if exists and non-empty
+        thonny_detected = bool(_os.environ['THONNY_USER_DIR']) # True if exists and non-empty
     elif micropython_detected:
-        thonny_detected = time.time()>31*86400 # > 1 month from hardware reset
+        thonny_detected = _time.time()>31*86400 # > 1 month from hardware reset
         # WARNING: false detection if time modified by program using machine.RTC()
     else:
         thonny_detected = False
 except:
     thonny_detected = False
 
-platform = sys.platform # "win32" or "darwin" or "linux" or "esp32" (other platforms not checked with Arduino-Python)
+platform = _sys.platform # "win32" or "darwin" or "linux" or "esp32" (other platforms not checked with Arduino-Python)
 
 if platform=="linux":
     try:
@@ -91,16 +91,16 @@ max = lambda a, b: (a if a>b else b)
 abs = lambda x: (x if x>0 else -x)
 
 def millis():
-    return time.time_ns()//1000000
+    return _time.time_ns()//1000000
 
 def micros():
-    return time.time_ns()//1000
+    return _time.time_ns()//1000
 
 def delay(ms):
-    time.sleep(ms/1000)
+    _time.sleep(ms/1000)
 
 def delayMicroseconds(us):
-    time.sleep(us/1000000)
+    _time.sleep(us/1000000)
 
 OK = True
 ER = False

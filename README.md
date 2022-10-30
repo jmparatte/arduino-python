@@ -1,11 +1,11 @@
 # Arduino-Python
 
-Arduino-Python is a Python 3 implementation of Arduino libraries and toolkit for various platforms including ESP32/MicroPython.
+Arduino-Python is a Python/MicroPython implementation of Arduino libraries and toolkit for various platforms as ESP32.
 
 The main goal of this development is to offer a quick way to migrate pure Arduino C++ libraries and programs to Python/MicroPython.
 
 
-## Hello World!
+## Hello World
 
 Arduino program [HelloWorld.ino]:  
 ```C++

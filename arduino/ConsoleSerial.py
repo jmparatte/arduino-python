@@ -14,17 +14,17 @@ else:
     if implementation=='cpython':
         if ARDUINO_ARCH_WIN32:
             import msvcrt
-            #msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+            #msvcrt.setmode(_sys.stdout.fileno(), _os.O_BINARY)
         else:
             import sys
             import select
             import tty
             import termios
 
-            stty_settings = termios.tcgetattr(sys.stdin)
-            #tty.setcbreak(sys.stdin)
+            stty_settings = termi_os.tcgetattr(_sys.stdin)
+            #tty.setcbreak(_sys.stdin)
             #...
-            #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
+            #termi_os.tcsetattr(_sys.stdin, termi_os.TCSADRAIN, stty_settings)
     else:
         import sys
         import select
@@ -48,10 +48,10 @@ class ConsoleSerial(HardwareSerial):
                     pass
                 else:
                     global stty_settings
-                    #stty_settings = termios.tcgetattr(sys.stdin)
-                    tty.setcbreak(sys.stdin)
+                    #stty_settings = termi_os.tcgetattr(_sys.stdin)
+                    tty.setcbreak(_sys.stdin)
                     #...
-                    #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
+                    #termi_os.tcsetattr(_sys.stdin, termi_os.TCSADRAIN, stty_settings)
             else:
                 pass
         self._connected = True
@@ -67,10 +67,10 @@ class ConsoleSerial(HardwareSerial):
                     pass
                 else:
                     global stty_settings
-                    #stty_settings = termios.tcgetattr(sys.stdin)
-                    #tty.setcbreak(sys.stdin)
+                    #stty_settings = termi_os.tcgetattr(_sys.stdin)
+                    #tty.setcbreak(_sys.stdin)
                     #...
-                    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
+                    termi_os.tcsetattr(_sys.stdin, termi_os.TCSADRAIN, stty_settings)
             else:
                 pass
         self._connected = False
@@ -111,18 +111,18 @@ class ConsoleSerial(HardwareSerial):
                     else:
                         c = -1
                 else:
-                    #stty_settings = termios.tcgetattr(sys.stdin)
-                    #tty.setcbreak(sys.stdin)
-                    list = select.select([sys.stdin], [], [], 0)
+                    #stty_settings = termi_os.tcgetattr(_sys.stdin)
+                    #tty.setcbreak(_sys.stdin)
+                    list = select.select([_sys.stdin], [], [], 0)
                     if list[0]:
-                        c = ord(sys.stdin.read(1))
+                        c = ord(_sys.stdin.read(1))
                     else:
                         c = -1
-                    #termios.tcsetattr(sys.stdin, termios.TCSADRAIN, stty_settings)
+                    #termi_os.tcsetattr(_sys.stdin, termi_os.TCSADRAIN, stty_settings)
             else:
-                list = select.select([sys.stdin], [], [], 0)
+                list = select.select([_sys.stdin], [], [], 0)
                 if list[0]:
-                    c = ord(sys.stdin.read(1))
+                    c = ord(_sys.stdin.read(1))
                 else:
                     c = -1
         return c

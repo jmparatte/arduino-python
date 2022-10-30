@@ -8,7 +8,7 @@ from Arduino_defines import *
 
 # https://www.arduino.cc/reference/en/libraries/sd/
 
-# https://docs.python.org/3/library/os.html
+# https://docs.python.org/3/library/_os.html
 
 from PythonFile import *
 
@@ -16,7 +16,7 @@ class PythonSDClass():
 
     def __init__(self, rootname='.'):
         self._rootname = rootname
-        self._rootpath = os.path.abspath(self._rootname)
+        self._rootpath = _os.path.abspath(self._rootname)
 
     def rootname(self):
         return self._rootname
@@ -35,31 +35,31 @@ class PythonSDClass():
         return (self._rootpath + self.normpath(path))
 
     def isdir(self, path):
-        return os.path.isdir(self.fullpath(path))
+        return _os.path.isdir(self.fullpath(path))
 
     def isfile(self, path):
-        return os.path.isfile(self.fullpath(path))
+        return _os.path.isfile(self.fullpath(path))
 
     def exists(self, path): # return OK
-        return os.path.exists(self.fullpath(path))
+        return _os.path.exists(self.fullpath(path))
 
     def remove(self, path): # return OK
         try:
-            os.remove(self.fullpath(path))
+            _os.remove(self.fullpath(path))
             return True
         except:
             return False
 
     def mkdir(self, path): # return OK
         try:
-            os.mkdir(self.fullpath(path))
+            _os.mkdir(self.fullpath(path))
             return True
         except:
             return False
 
     def rmdir(self, path): # return OK
         try:
-            os.rmdir(self.fullpath(path))
+            _os.rmdir(self.fullpath(path))
             return True
         except:
             return False

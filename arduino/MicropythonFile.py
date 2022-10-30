@@ -15,13 +15,13 @@ class MicropythonFile(Stream):
 
     def os_path_isdir(path):
         try:
-            return os.stat(path)[0]==0x4000
+            return _os.stat(path)[0]==0x4000
         except:
             return False
 
     def os_path_isfile(path):
         try:
-            return os.stat(path)[0]==0x8000
+            return _os.stat(path)[0]==0x8000
         except:
             return False
 
@@ -81,7 +81,7 @@ class MicropythonFile(Stream):
 
     def size(self):
         if not self.isfile(): return -1
-        return os.stat(self.fullpath())[6]
+        return _os.stat(self.fullpath())[6]
 
     def open(self, rootpath, dirpath, filepath, mode=FILE_READ): # return File
 
@@ -90,7 +90,7 @@ class MicropythonFile(Stream):
 
         if MicropythonFile.os_path_isdir(self.fullpath()):
             try:
-                self._si = os.ilistdir(self.fullpath())
+                self._si = _os.ilistdir(self.fullpath())
             except:
                 pass
         elif MicropythonFile.os_path_isfile(self.fullpath()):
@@ -121,7 +121,7 @@ class MicropythonFile(Stream):
 
     def rewindDirectory(self): # return OK
         if not self.isdir(): return False
-        self._si = os.ilistdir(self.fullpath())
+        self._si = _os.ilistdir(self.fullpath())
         return True
 
     def read_char(self):

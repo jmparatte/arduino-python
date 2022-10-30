@@ -14,10 +14,10 @@ from Stream import *
 class PythonFile(Stream):
 
     def os_path_isdir(path):
-        return os.path.isdir(path)
+        return _os.path.isdir(path)
 
     def os_path_isfile(path):
-        return os.path.isfile(path)
+        return _os.path.isfile(path)
 
     def __init__(self):
         super(PythonFile, self).__init__()
@@ -75,7 +75,7 @@ class PythonFile(Stream):
 
     def size(self):
         if not self.isfile(): return -1
-        return os.stat(self.fullpath()).st_size
+        return _os.stat(self.fullpath()).st_size
 
     def open(self, rootpath, dirpath, filepath, mode=FILE_READ): # return File
 
@@ -84,7 +84,7 @@ class PythonFile(Stream):
 
         if PythonFile.os_path_isdir(self.fullpath()):
             try:
-                self._si = iter(os.scandir(self.fullpath()))
+                self._si = iter(_os.scandir(self.fullpath()))
             except:
                 pass
         elif PythonFile.os_path_isfile(self.fullpath()):
@@ -115,7 +115,7 @@ class PythonFile(Stream):
 
     def rewindDirectory(self): # return OK
         if not self.isdir(): return False
-        self._si = iter(os.scandir(self.fullpath()))
+        self._si = iter(_os.scandir(self.fullpath()))
         return True
 
     def read_char(self):

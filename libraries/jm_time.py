@@ -4,9 +4,9 @@
 
 # https://www.epochconverter.com/
 # https://cplusplus.com/reference/ctime/
-# https://docs.python.org/fr/3/library/time.html
-# https://docs.python.org/3/library/time.html#time.time
-# https://docs.python.org/3/library/time.html#time.struct_time
+# https://docs.python.org/fr/3/library/_time.html
+# https://docs.python.org/3/library/_time.html#_time.time
+# https://docs.python.org/3/library/_time.html#_time.struct_time
 
 from Arduino import *
 
@@ -166,7 +166,8 @@ def _localtime(timer):
     tm = gmtime(timer + _tz_offsets[i&1]*60)[0:8] + ((i&1,))
     return tm
 
-def localtime(timer):
+def localtime(timer=None):
+    if timer==None: timer=time_get()
     if python_detected:
         #return _localtime(timer)
         return _time.localtime(timer)[0:9]
