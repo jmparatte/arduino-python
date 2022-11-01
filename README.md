@@ -86,11 +86,11 @@ if ARDUINO_ARCH_ESP32:
 
 | type    | name               | platform  | details implementation |
 |---------|--------------------|-----------|------------------------|
-| header  | `Arduino`          | `"win32"` | digital, analog and Wire unavailable |
-|         |                    | `"macos"` | digital, analog and Wire unavailable |
-|         |                    | `"linux"` | digital, analog and Wire unavailable |
-|         |                    | `"rpios"` | digital soon available, analog unavailable |
-|         |                    | `"esp32"` | digital and analog soon available |
+| header  | `Arduino`          | `"win32"` | I/O, Wire, SPI unavailable |
+|         |                    | `"macos"` | I/O, Wire, SPI unavailable |
+|         |                    | `"linux"` | I/O, Wire, SPI unavailable |
+|         |                    | `"rpios"` | digital soon available |
+|         |                    | `"esp32"` | digital and analog ready, pwm soon available |
 | class   | `String`           | all       | not yet implemented |
 | class   | `Print`            | all       | ready, not fully implemented |
 | class   | `Stream`           | all       | ready, not fully implemented |
@@ -107,9 +107,9 @@ if ARDUINO_ARCH_ESP32:
 |         |                    | `"rpios"` | full on USB user declared comport |
 | object  | `Serial1`          | `"esp32"` | full on UART1 (various pins) |
 | class   | `TwoWire`          | all       | full |
-| object  | `Wire`             | `"win32"` | I2C unavailable |
-|         |                    | `"macos"` | I2C unavailable |
-|         |                    | `"linux"` | I2C unavailable |
+| object  | `Wire`             | `"win32"` | unavailable |
+|         |                    | `"macos"` | unavailable |
+|         |                    | `"linux"` | unavailable |
 |         |                    | `"rpios"` | full |
 |         |                    | `"esp32"` | full |
 | class   | `File`             | all       | full |

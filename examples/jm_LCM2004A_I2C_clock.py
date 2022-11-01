@@ -3,11 +3,9 @@
 from Arduino import *
 from Wire import *
 
-import jm_time as time
-
 from jm_LCM2004A_I2C import *
 
-lcd = jm_LCM2004A_I2C()
+import jm_time as time
 
 clock_custom_font5x8 = bytes([
 #0:
@@ -95,71 +93,73 @@ clock_custom_font5x8 = bytes([
 #5: Clock LCD custom character 5
 #6: Clock LCD custom character 6
 #7: Clock LCD custom character 7
-S = 0x20 # LCD Space character
-B = 0xFF # LCD Block character
+SP = 0x20 # LCD Space character
+BK = 0xFF # LCD Block character
 
 clock_digits_font4x4 = bytes([
 #0: '0'
-    0, B, B, 1,
-    B, S, S, B,
-    B, S, S, B,
-    2, B, B, 3,
+    0,  BK, BK, 1,
+    BK, SP, SP, BK,
+    BK, SP, SP, BK,
+    2,  BK, BK, 3,
 #1: '1'
-    S, 0, B, S,
-    S, S, B, S,
-    S, S, B, S,
-    0, B, B, 3,
+    SP, 0,  BK, SP,
+    SP, SP, BK, SP,
+    SP, SP, BK, SP,
+    0,  BK, BK, 3,
 #2: '2'
-    0, B, B, 1,
-    S, S, 0, 3,
-    S, 0, 3, S,
-    0, B, B, 3,
+    0,  BK, BK, 1,
+    SP, SP, 0,  3,
+    SP, 0,  3, SP,
+    0,  BK, BK, 3,
 #4: '3'
-    0, B, B, 1,
-    S, S, 0, 3,
-    S, S, 2, 1,
-    2, B, B, 3,
+    0,  BK, BK, 1,
+    SP, SP, 0,  3,
+    SP, SP, 2,  1,
+    2,  BK, BK, 3,
 #4: '4'
-    S, S, 0, 3,
-    S, 0, 3, S,
-    0, B, B, 3,
-    S, S, 3, S,
+    SP, SP, 0,  3,
+    SP, 0,  3, SP,
+    0,  BK, BK, 3,
+    SP, SP, 3,  SP,
 #5: '5'
-    0, B, B, 3,
-    B, B, B, 1,
-    S, S, S, B,
-    2, B, B, 3,
+    0,  BK, BK, 3,
+    BK, BK, BK, 1,
+    SP, SP, SP, BK,
+    2,  BK, BK, 3,
 #6: '6'
-    S, 0, B, 3,
-    0, 3, S, S,
-    B, 3, 2, 1,
-    2, 1, 0, 3,
+    SP, 0,  BK, 3,
+    0,  3,  SP, SP,
+    BK, 3,  2,  1,
+    2,  1,  0,  3,
 #7: '7'
-    0, B, B, 1,
-    S, S, 0, 3,
-    S, 0, 3, S,
-    0, 3, S, S,
+    0,  BK, BK, 1,
+    SP, SP, 0,  3,
+    SP, 0,  3,  SP,
+    0,  3,  SP, SP,
 #8: '8'
-    0, 3, 2, 1,
-    2, 1, 0, 3,
-    0, 3, 2, 1,
-    2, 1, 0, 3,
+    0,  3,  2,  1,
+    2,  1,  0,  3,
+    0,  3,  2,  1,
+    2,  1,  0,  3,
 #9: '9'
-    0, 3, 2, 1,
-    2, 1, 0, B,
-    S, S, 0, 3,
-    0, B, 3, S,
+    0,  3,  2,  1,
+    2,  1,  0,  BK,
+    SP, SP, 0,  3,
+    0, BK,  3,  SP,
 #10: ':'
-    S, 0, 1, S,
-    S, 2, 3, S,
-    S, 0, 1, S,
-    S, 2, 3, S,
+    SP, 0,  1,  SP,
+    SP, 2,  3,  SP,
+    SP, 0,  1,  SP,
+    SP, 2,  3,  SP,
 #11: ' '
-    S, S, S, S,
-    S, S, S, S,
-    S, S, S, S,
-    S, S, S, S,
+    SP, SP, SP, SP,
+    SP, SP, SP, SP,
+    SP, SP, SP, SP,
+    SP, SP, SP, SP,
 ])
+
+lcd = jm_LCM2004A_I2C()
 
 def clock_digit_display(digit, digit_col):
     for row in range(4):
@@ -181,7 +181,6 @@ def clock_hh_mm_display(hh, mm, colon):
     clock_digit_display(mm%10, 4)
 
 def clock():
-    global lcd
     hh_ = -1
     mm_ = -1
     while True:

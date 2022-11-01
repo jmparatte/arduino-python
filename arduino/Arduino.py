@@ -22,6 +22,20 @@ else:
 
 # ===================
 
+if platform=='esp32':
+    from ESP32_pins import *
+else:
+    def pinMode(pin, mode=None):
+        pass
+    def digitalWrite(pin, value):
+        pass
+    def digitalRead(pin):
+        return LOW
+    def analogRead(pin):
+        return 0
+
+# ===================
+
 from ConsoleSerial import *
 
 Serial = ConsoleSerial()
