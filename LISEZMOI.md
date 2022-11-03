@@ -1,13 +1,13 @@
 # Arduino-Python
 
-Arduino-Python is a Python/MicroPython implementation of Arduino libraries and toolkit for various platforms as Raspberry PI and ESP32.
+Arduino-Python est une implémentation Python/MicroPython des bibliothèques Arduino et de la boîte à outils pour diverses plates-formes telles que Raspberry PI et ESP32.
 
-The main goal of this development is to offer a quick way to migrate Arduino C++ libraries and programs to Python/MicroPython.
+L'objectif principal de ce développement est d'offrir un moyen rapide de migrer des bibliothèques et des programmes Arduino C++ vers Python/MicroPython.
 
 
 ## Hello World!
 
-Arduino program [HelloWorld.ino]:
+Le programme Arduino [HelloWorld.ino]:
 ```C++
 void setup() {
     Serial.begin();
@@ -19,7 +19,7 @@ void loop() {
 }
 ```
 
-can be translated to explicit Arduino-Python [HelloWorld_explicit.py] including translation of Arduino C++ `main()` function:
+peut être traduit en Arduino-Python explicite [HelloWorld_explicit.py], y compris la traduction de la fonction Arduino C++ `main()`:
 ```python
 from Arduino import *
 
@@ -39,7 +39,7 @@ def main():
 main()
 ```
 
-or can be translated to minimal shortest compact Arduino-Python [HelloWorld_compact.py] exluding unnecessary code:
+ou peut être traduit en Arduino-Python compact plus court [HelloWorld_compact.py] en excluant le code inutile:
 ```python
 from Arduino import *
 
@@ -49,7 +49,7 @@ Serial.end()
 ```
 
 
-## Supported platforms
+## Platformes supportées
 
 | hardware | OS          | `implementation` | `platform` | Arduino architecture |
 |----------|-------------|------------------|------------|----------------------|
@@ -59,30 +59,30 @@ Serial.end()
 | RPi      | RPi OS      | `"cpython"`      | `"rpios"`  | `ARDUINO_ARCH_RPIOS` |
 | ESP32    | MicroPython | `"micropython"`  | `"esp32"`  | `ARDUINO_ARCH_ESP32` |
 
-- PC/Windows is any running recent [Python] or [Thonny].
-- PC/Mac OS is any running recent [Python] or [Thonny].
-- PC/Linux is any running recent [Python] or [Thonny].
-- RPi/RPi OS is any running recent [Python] or [Thonny].
-- ESP32/MicroPython is any of ESP32, EPS32-S2 or ESP32-C3 flashed with recent [MicroPython].
+- PC/Windows est tout PC opérant un [Python] ou [Thonny] récent.
+- PC/Mac OS est tout Mac opérant un [Python] ou [Thonny] récent.
+- PC/Linux est tout Linux opérant un [Python] ou [Thonny] récent.
+- RPi/RPi OS est tout RPi opérant un [Python] ou [Thonny] récent.
+- ESP32/MicroPython est tout ESP32, EPS32-S2 ou ESP32-C3 flashé avec un [MicroPython] récent.
 
-- `implementation` is a Arduino-Python constant loaded before start of application. This constant is a shortcut to `sys.implementation.name`. Its value is `"cpython"` or `"micropython"`. `implementation` can be checked with code like that:
+- `implementation` est une constante Arduino-Python chargée avant le démarrage de l'application. Cette constante est un raccourci vers `sys.implementation.name`. Sa valeur est `"cpython"` ou `"micropython"`. `implementation` peut être vérifiée avec un code comme celui-ci:
 ```Python
 if implementation=="micropython":
     # execute next code only if MicroPython implementation...
 ```
-- `platform` is a Arduino-Python constant loaded before start of application. Its value is derived from `sys.platform` and other checks. `platform` can be checked with code like that:
+- `platform` est une constante Arduino-Python chargée avant le démarrage de l'application. Sa valeur est dérivée de `sys.platform` et d'autres vérifications. `platform` peut être vérifiée avec un code comme celui-ci:
 ```Python
 if platform=="esp32":
     # execute next code only if ESP32 hardware...
 ```
-- `ARDUINO_ARCH_xxxxx` are Arduino-Python constants loaded before start of application. They values are all `False` but only one is `True`. They can be checked with codes like that:
+- `ARDUINO_ARCH_xxxxx` sont des constantes Arduino-Python chargées avant le démarrage de l'application. Leurs valeurs sont toutes `False` mais une seule est `True`. Elles peuvent être vérifiés avec un code comme celui-ci:
 ```Python
 if ARDUINO_ARCH_ESP32:
     # execute next code only if ESP32 hardware...
 ```
 
 
-## Arduino translated headers, classes and objects
+## En-têtes, classes et objets Arduino traduits
 
 | type    | name               | platform  | details implementation |
 |---------|--------------------|-----------|------------------------|
@@ -117,7 +117,7 @@ if ARDUINO_ARCH_ESP32:
 | object  | `SD`               | all       | full |
 
 
-## Arduino-Python libraries
+## Librairies Arduino-Python
 
 | library/class                     | platform  | summary |
 |-----------------------------------|-----------|---------|
@@ -126,7 +126,7 @@ if ARDUINO_ARCH_ESP32:
 | [jm_time.py]                      | all       | Python/MicroPython `time` replacement with same/standard UNIX epoch, timezone support and more |
 
 
-## Arduino-Python examples
+## Exemples Arduino-Python
 
 | example                           | platform  | summary |
 |-----------------------------------|-----------|---------|
@@ -139,65 +139,78 @@ if ARDUINO_ARCH_ESP32:
 
 ## Serial.write(), Serial.print()
 
-`Serial`is the Arduino console input/output. This object is implemented on a serial uart, a serial usb or a virtual serial. No restrictions apply to writing.
+`Serial` est l'entrée/sortie de la console Arduino. Cet objet est implémenté sur un uart sériel, un usb sériel ou un sériel virtuel. Aucune restriction ne s'applique à l'écriture.
 
-`Serial.write()` accepts 1 argument with 3 different meanings:  
-- `c`, a 8-bit positiv integer written as single byte. This could be a character ordinal value or a data byte. Exemple: `Serial.write(ord('A')) # write byte 65`
-- `bstr`, a Python bytes object written as bytes. Exemple: `Serial.write(b'hello\r\n') # write 7 bytes`
-- `str`, a Python unicode string converted to utf-8 bytes and then written. Exemple: `Serial.write('é') # write 2 bytes: b'\xc3\xa9'`
+`Serial.write()` accepte 1 argument avec 3 significations différentes:
+- `c`, un entier positif de 8 bits écrit sur un seul octet.
+Il peut s'agir de la valeur ordinale d'un caractère ou d'un octet de données.
+Exemple : `Serial.write(ord('A')) # écriture de l'octet 65`
+- `bstr`, un objet Python `bytes` écrit en une série d'octets.
+Exemple : `Serial.write(b'hello\r\n') # écrit 7 octets`
+- `str`, une chaîne Python unicode convertie en octets utf-8 puis écrite.
+Exemple : `Serial.write('é') # écrit 2 octets : b'\xc3\xa9'`
 
-`Serial.print()` accepts 1 argument with 3 different meanings:  
-- `n`, a Python number printed as a human-readable string. Exemple: `Serial.print(65) # write bytes b'65'`
-- `bstr`, same behaviour as `Serial.write()`
-- `str`, same behaviour as `Serial.write()`
+`Serial.print()` accepte 1 argument avec 3 significations différentes :
+- `n`, un nombre Python imprimé sous forme de chaîne lisible par l'homme.
+Exemple : `Serial.print(65) # écrit la série d'octets b'65'`
+- `bstr`, même comportement que `Serial.write()`
+- `str`, même comportement que `Serial.write()`
 
-`Serial.write()` and `Serial.print()` returns the number of written bytes.
+`Serial.write()` et `Serial.print()` renvoient le nombre d'octets écrits.
 
-`Serial.println()` proceeds same as `Serial.print()` but append `b'\r\n'` end-of-line.
+`Serial.println()` procède de la même manière que `Serial.print()` mais ajoute `b'\r\n'` en fin de ligne.
 
-`Serial0` (Raspberry Pi), `Serial1` and next have same methods as `Serial`.
-
+`Serial0` (Raspberry Pi), `Serial1` et suivants ont les mêmes méthodes que `Serial`.
 
 ## Serial.read()
 
-`Serial`is the Arduino console input/output. This object is implemented on a serial uart, a serial usb or a virtual serial. Restrictions apply to reading.
+`Serial` est l'entrée/sortie de la console Arduino.
+Cet objet est implémenté sur un uart sériel, un usb sériel ou un sériel virtuel.
+Des restrictions s'appliquent à la lecture.
 
-`Serial.read()` has no argument, it returns either of:  
-- the integer value `-1` if no data is available. 
-- a 8-bit positiv integer representing a character ordinal value or a data byte. The character ordinal value can be converted to `str` with `chr()` function. Example 1: `str += chr(65) # append 'A' to str`. Exemple 2: `bstr += chr(65).encode() # append b'A' to bstr`
+`Serial.read()` n'a pas d'argument, il renvoie soit:
+- la valeur entière `-1` si aucune donnée n'est disponible.
+- un entier positif 8 bits représentant la valeur ordinale d'un caractère ou d'un octet de données.
+La valeur ordinale du caractère peut être convertie en `str` par la fonction `chr()`.
+Exemple 1 : `str += chr(65) # ajoute 'A' à str`.
+Exemple 2 : `bstr += chr(65).encode() # ajoute b'A' à bstr`
 
-Restrictions are of 2 types:
-- programs running through [Thonny] IDE can't have a true char per char console reading. On 1st `Serial.read()`, a full input line is read, buffered and ended with `<CR><LF>`, and then read byte per byte. Waiting the input line, the program is stopped, control is not given back until an ending line character is typed!
-- in practice, console read characters is limited to ascii 7-bit charset excluding control characters and `<DEL>` character. A 8-bit encoder/decoder to/from ascii charset with checksum must be implemented to exchange unrestricted secured data via the console.
+Les restrictions sont de 2 types :
+- les programmes exécutés via l'IDE [Thonny] ne peuvent pas avoir une véritable lecture de la console caractère par caractère.
+Lors de l'exécution du 1er `Serial.read()`, une ligne d'entrée complète est lue, mise en mémoire tampon et complétée par `<CR><LF>`, puis lue caractère par caractère.
+Lors de la lecture de la ligne d'entrée, le programme est bloqué et le contrôle n'est pas rendu tant qu'un caractère de fin de ligne n'est pas tapé !
+- en pratique, les caractères lus par la console sont limités au jeu de caractères `ascii` 7 bits à l'exclusion des caractères de contrôle et du caractère `<DEL>`.
+Un encodeur/décodeur 8 bits vers/depuis le jeu de caractères `ascii` avec somme de contrôle doit être implémenté pour échanger des données sécurisées sans restriction via la console.
 
-`Serial0` (Raspberry Pi), `Serial1` and next have same methods as `Serial` but without any reading restrictions.
-
+`Serial0` (Raspberry Pi), `Serial1` et suivants ont les mêmes méthodes que `Serial` toutefois sans aucune restriction de lecture.
 
 ## Folders contents
 
-- [arduino] - Arduino core translated to Python
-- [libraries] - Arduino libraries translated to Python
-- [examples] - Arduino-Python examples
-- [cgi-bin] - Python CGI scripts for HTTP Web servers
-- [tools] - Python tools
+- [arduino] - Core Arduino traduits en Python
+- [libraries] - Librairies Arduino traduites en Python
+- [examples] - Exemples Arduino-Python
+- [cgi-bin] - Scripts CGI Python pour serveurs Web HTTP
+- [tools] - Outils Python
 
-Additional informations are given in each folder.
+Des informations complémentaires sont données dans chaque dossier.
 
 
 ## Installation
 
-- Create a `<arduino-python>` development folder.
-- Copy all [arduino] files into the `<arduino-python>` development folder.
-- Copy other files to learn from [libraries] and [examples] into the `<arduino-python>` development folder.
+- Créez un dossier de développement `<arduino-python>`.
+- Copiez tous les fichiers [arduino] dans le dossier de développement `<arduino-python>`.
+- Copiez les autres fichiers à étudier de [libraries] et [examples] dans le dossier de développement `<arduino-python>`.
 
 
-## Basic usage
+## Usage basique
 
-- Open `<arduino-python>` development folder.
-- Executing from _Windows Command_, type `python <scriptname>` or simply `<scriptname>` (verify that `Python` link is correctly declared in `PATH` environment).
-- Executing from _Linux Terminal_, type `python <scriptname>` or simply `./<scriptname>` (don't forget to set _executable permissions_ to `<scriptname>`, look at [How to run a Python script in Linux] howto).
-- Executing from [Thonny] - _Python IDE for beginners_, load `<scriptname>` and run it.
-- Enjoy :smiley:
+- Ouvrez le dossier de développement `<arduino-python>`.
+- En exécutant depuis _Windows Command_, tapez `python <scriptname>` ou simplement `<scriptname>` (vérifiez que le lien `Python` est correctement déclaré dans l'environnement `PATH`).
+- En exécutant depuis _Linux Terminal_, tapez `python <scriptname>` ou simplement `./<scriptname>`
+(n'oubliez pas de définir _executable permissions_ sur `<scriptname>`,
+regardez le tutoriel [How to run a Python script in Linux]).
+- En exécutant depuis [Thonny] - _Python IDE pour débutants_, chargez `<scriptname>` et exécutez-le.
+- Souriez :smiley:
 
 
 [arduino]: <arduino>
