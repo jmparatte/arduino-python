@@ -51,21 +51,22 @@ def digitalRead(pin):
     if pin==-1: return LOW
     return _pins[pin][1].value()
 
-#pinMode(LED_BUILTIN, INPUT)
-pinMode(LED_BUILTIN, OUTPUT)
-#pinMode(LED_BUILTIN, INPUT_PULLUP)
-#pinMode(LED_BUILTIN, OUTPUT_OPENC)
-print(repr(_pins))
-for _ in range(1):
-    digitalWrite(LED_BUILTIN, HIGH)
-    print(digitalRead(LED_BUILTIN))
-    delay(100)
-    digitalWrite(LED_BUILTIN, LOW)
-    print(digitalRead(LED_BUILTIN))
-    delay(100)
+if __name__=="__main__":
+    #pinMode(LED_BUILTIN, INPUT)
+    pinMode(LED_BUILTIN, OUTPUT)
+    #pinMode(LED_BUILTIN, INPUT_PULLUP)
+    #pinMode(LED_BUILTIN, OUTPUT_OPENC)
+    print(repr(_pins))
+    for _ in range(1):
+        digitalWrite(LED_BUILTIN, HIGH)
+        print(digitalRead(LED_BUILTIN))
+        delay(100)
+        digitalWrite(LED_BUILTIN, LOW)
+        print(digitalRead(LED_BUILTIN))
+        delay(100)
 
-pinMode(LED_BUILTIN, -1)
-print(repr(_pins))
+    pinMode(LED_BUILTIN, -1)
+    print(repr(_pins))
 
 # analog pins: 1...10
 
@@ -75,13 +76,14 @@ def analogRead(pin):
         _pins[pin] = (PIN_ADC, None, ADC(Pin(pin)))
     return _pins[pin][2].read()
 
-for _ in range(10):
-    print(analogRead(7))
+if __name__=="__main__":
+    for _ in range(10):
+        print(analogRead(7))
 
-print(repr(_pins))
+    print(repr(_pins))
 
-pinMode(0, INPUT_PULLUP)
-for _ in range(100):
-    print(digitalRead(0))
-    delay(100)
+    pinMode(0, INPUT_PULLUP)
+    for _ in range(100):
+        print(digitalRead(0))
+        delay(100)
     

@@ -73,6 +73,13 @@ class MicropythonSDClass():
         except:
             return False
 
+    def begin(self, pin=None):
+        _ = pin
+        return True
+
+    def end(self):
+        return True
+
     def open(self, path, mode=FILE_READ): # return File
         # https://www.arduino.cc/reference/en/libraries/sd/open/
         return MicropythonFile().open(self._rootpath, "", self.normpath(path), mode)

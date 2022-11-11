@@ -16,7 +16,9 @@ class Print:
         return 1
 
     def write_char(self, c):
-        return c&0 # 0 (it's to use <c> parameter)
+        #return c&0 # 0 (it's to use <c> parameter)
+        _ = c
+        return 0
 
     def write_bstr(self, b):
         l = 0
@@ -29,13 +31,13 @@ class Print:
     def write_str(self, s):
         return self.write_bstr(s.encode())
 
-    def write(self, c):
-        if isinstance(c, int):
-            return self.write_char(c)
-        elif isinstance(c, (bytes, bytearray)):
-            return self.write_bstr(c)
+    def write(self, v):
+        if isinstance(v, int):
+            return self.write_char(v)
+        elif isinstance(v, (bytes, bytearray)):
+            return self.write_bstr(v)
         else:
-            return self.write_str(c)
+            return self.write_str(v)
 
     def print(self, v):
         if isinstance(v, str):

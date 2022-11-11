@@ -4,6 +4,8 @@
 
 from Arduino_defines import *
 
+import os as _os
+
 # ===================
 
 FILE_READ = "rb"
@@ -88,9 +90,9 @@ class MicropythonFile(Stream):
         if self.isopen(): self._close()
         self._init(rootpath, dirpath, filepath, mode)
 
-        if MicropythonFile.os_path_isdir(self.fullpath()):
+        if mode==FILE_WRITE:
             try:
-                self._si = _os.ilistdir(self.fullpath())
+                self._fd = open(self.fullpath(), self._mode)
             except:
                 pass
         elif MicropythonFile.os_path_isfile(self.fullpath()):
@@ -98,8 +100,14 @@ class MicropythonFile(Stream):
                 self._fd = open(self.fullpath(), self._mode)
             except:
                 pass
+        elif MicropythonFile.os_path_isdir(self.fullpath()):
+            try:
+                self._si = _os.ilistdir(self.fullpath())
+            except:
+                pass
         else:
             pass
+
         return self
 
     def close(self): # return OK

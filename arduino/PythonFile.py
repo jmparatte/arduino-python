@@ -4,6 +4,8 @@
 
 from Arduino_defines import *
 
+import os as _os
+
 # ===================
 
 FILE_READ = "rb"
@@ -82,9 +84,9 @@ class PythonFile(Stream):
         if self.isopen(): self._close()
         self._init(rootpath, dirpath, filepath, mode)
 
-        if PythonFile.os_path_isdir(self.fullpath()):
+        if mode==FILE_WRITE:
             try:
-                self._si = iter(_os.scandir(self.fullpath()))
+                self._fd = open(self.fullpath(), self._mode)
             except:
                 pass
         elif PythonFile.os_path_isfile(self.fullpath()):
@@ -92,8 +94,14 @@ class PythonFile(Stream):
                 self._fd = open(self.fullpath(), self._mode)
             except:
                 pass
+        elif PythonFile.os_path_isdir(self.fullpath()):
+            try:
+                self._si = iter(_os.scandir(self.fullpath()))
+            except:
+                pass
         else:
             pass
+        
         return self
 
     def close(self): # return OK

@@ -24,8 +24,11 @@ class Stream(Print):
         return self._peek
 
     def available(self):
-        if self._peek>=0: return 1
-        return 0
+        if self._peek==-1: self.peek()
+        if self._peek>=0:
+            return 1
+        else:
+            return 0
 
     def read(self):
         c = self.peek()
