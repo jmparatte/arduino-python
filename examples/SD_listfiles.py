@@ -31,17 +31,16 @@ def printDirectory(dir, numTabs=0):
 
         entry.close()
 
-if __name__=="__main__":
+Serial.begin()
 
-    Serial.begin()
+SD.begin()
 
-    SD.begin()
+root = SD.open("www")
+printDirectory(root)
+#root.rewindDirectory()
+#printDirectory(root)
+root.close()
 
-    root = SD.open("www")
-    printDirectory(root)
-    root.rewindDirectory()
-    root.close()
+SD.end()
 
-    SD.end()
-
-    Serial.end()
+Serial.end()
