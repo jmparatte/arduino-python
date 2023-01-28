@@ -26,12 +26,18 @@ if platform=='esp32':
     from ESP32_pins import *
 else:
     def pinMode(pin, mode=None):
+        _ = pin
+        _ = mode
         pass
     def digitalWrite(pin, value):
+        _ = pin
+        _ = value
         pass
     def digitalRead(pin):
+        _ = pin
         return LOW
     def analogRead(pin):
+        _ = pin
         return 0
 
 # ===================
